@@ -728,10 +728,16 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     ci: Attribute.BigInteger;
     ci_prefix: Attribute.Enumeration<['V', 'E']>;
     phone: Attribute.BigInteger;
-    phone_prefix: Attribute.String;
+    phone_prefix: Attribute.String & Attribute.DefaultTo<'+58'>;
     rif: Attribute.String;
     address: Attribute.Text;
     office_address: Attribute.Text;
+    file_ci: Attribute.Media;
+    file_rif: Attribute.Media;
+    file_carta_residencia: Attribute.Media;
+    file_referencias: Attribute.Media;
+    file_carta_trabajo: Attribute.Media;
+    file_foto: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
