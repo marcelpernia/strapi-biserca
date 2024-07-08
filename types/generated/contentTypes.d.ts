@@ -362,6 +362,41 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiOfficeOffice extends Schema.CollectionType {
+  collectionName: 'offices';
+  info: {
+    singularName: 'office';
+    pluralName: 'offices';
+    displayName: 'Office';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    title: Attribute.String;
+    address: Attribute.Text;
+    user: Attribute.Relation<
+      'api::office.office',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::office.office',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::office.office',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -738,6 +773,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     file_referencias: Attribute.Media;
     file_carta_trabajo: Attribute.Media;
     file_foto: Attribute.Media;
+    office: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToOne',
+      'api::office.office'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -812,6 +852,7 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
+      'api::office.office': ApiOfficeOffice;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;

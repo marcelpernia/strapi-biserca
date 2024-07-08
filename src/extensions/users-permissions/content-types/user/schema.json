@@ -150,6 +150,12 @@
         "images",
         "files"
       ]
+    },
+    "office": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::office.office",
+      "inversedBy": "user"
     }
   }
 }
