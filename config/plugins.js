@@ -4,6 +4,18 @@ module.exports = ({ env }) => ({
       jwtSecret: env('JWT_SECRET'),
     },
   },
+  email: {
+    config: {
+      provider: 'strapi-provider-email-resend',
+      providerOptions: {
+        apiKey: env('RESEND_API_KEY'), // Required
+      },
+      settings: {
+        defaultFrom: 'onboarding@resend.dev',
+        defaultReplyTo: 'biserca.develop@gmail.com',
+      },
+    }
+  },  
   upload: {
     config: {
       provider: 'aws-s3',
