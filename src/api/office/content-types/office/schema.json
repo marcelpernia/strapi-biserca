@@ -17,9 +17,9 @@
     "address": {
       "type": "text"
     },
-    "user": {
+    "users": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "oneToMany",
       "target": "plugin::users-permissions.user",
       "mappedBy": "office"
     }

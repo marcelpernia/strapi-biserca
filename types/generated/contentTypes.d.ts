@@ -375,9 +375,9 @@ export interface ApiOfficeOffice extends Schema.CollectionType {
   attributes: {
     title: Attribute.String;
     address: Attribute.Text;
-    user: Attribute.Relation<
+    users: Attribute.Relation<
       'api::office.office',
-      'oneToOne',
+      'oneToMany',
       'plugin::users-permissions.user'
     >;
     createdAt: Attribute.DateTime;
@@ -775,7 +775,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     file_foto: Attribute.Media;
     office: Attribute.Relation<
       'plugin::users-permissions.user',
-      'oneToOne',
+      'manyToOne',
       'api::office.office'
     >;
     createdAt: Attribute.DateTime;

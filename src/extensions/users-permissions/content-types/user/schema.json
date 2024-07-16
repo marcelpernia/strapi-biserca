@@ -153,9 +153,9 @@
     },
     "office": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::office.office",
-      "inversedBy": "user"
+      "inversedBy": "users"
     }
   }
 }
