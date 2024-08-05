@@ -156,6 +156,9 @@
       "relation": "manyToOne",
       "target": "api::office.office",
       "inversedBy": "users"
+    },
+    "contract_acceptance": {
+      "type": "boolean"
     }
   }
 }
