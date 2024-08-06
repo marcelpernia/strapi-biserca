@@ -779,6 +779,12 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'api::office.office'
     >;
     contract_acceptance: Attribute.Boolean;
+    doc_ci: Attribute.Text;
+    doc_rif: Attribute.Text;
+    doc_carta_residencia: Attribute.Text;
+    doc_referencias: Attribute.Text;
+    doc_carta_trabajo: Attribute.Text;
+    doc_foto: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

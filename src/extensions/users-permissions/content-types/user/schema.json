@@ -159,6 +159,24 @@
     },
     "contract_acceptance": {
       "type": "boolean"
+    },
+    "doc_ci": {
+      "type": "text"
+    },
+    "doc_rif": {
+      "type": "text"
+    },
+    "doc_carta_residencia": {
+      "type": "text"
+    },
+    "doc_referencias": {
+      "type": "text"
+    },
+    "doc_carta_trabajo": {
+      "type": "text"
+    },
+    "doc_foto": {
+      "type": "text"
     }
   }
 }
