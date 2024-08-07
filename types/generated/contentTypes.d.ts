@@ -362,41 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiOfficeOffice extends Schema.CollectionType {
-  collectionName: 'offices';
-  info: {
-    singularName: 'office';
-    pluralName: 'offices';
-    displayName: 'Office';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    title: Attribute.String;
-    address: Attribute.Text;
-    users: Attribute.Relation<
-      'api::office.office',
-      'oneToMany',
-      'plugin::users-permissions.user'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::office.office',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::office.office',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -766,7 +731,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     phone_prefix: Attribute.String & Attribute.DefaultTo<'+58'>;
     rif: Attribute.String;
     address: Attribute.Text;
-    office_address: Attribute.Text;
     file_ci: Attribute.Media;
     file_rif: Attribute.Media;
     file_carta_residencia: Attribute.Media;
@@ -785,6 +749,16 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     doc_referencias: Attribute.Text;
     doc_carta_trabajo: Attribute.Text;
     doc_foto: Attribute.Text;
+    group: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'manyToOne',
+      'api::group.group'
+    >;
+    salesrep: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'manyToOne',
+      'api::salesrep.salesrep'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -849,6 +823,195 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
+export interface ApiGroupGroup extends Schema.CollectionType {
+  collectionName: 'groups';
+  info: {
+    singularName: 'group';
+    pluralName: 'groups';
+    displayName: 'Group';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required & Attribute.Unique;
+    users: Attribute.Relation<
+      'api::group.group',
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::group.group',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::group.group',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiOfficeOffice extends Schema.CollectionType {
+  collectionName: 'offices';
+  info: {
+    singularName: 'office';
+    pluralName: 'offices';
+    displayName: 'Office';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required & Attribute.Unique;
+    address: Attribute.Text;
+    users: Attribute.Relation<
+      'api::office.office',
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
+    salesreps: Attribute.Relation<
+      'api::office.office',
+      'oneToMany',
+      'api::salesrep.salesrep'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::office.office',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::office.office',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProductProduct extends Schema.CollectionType {
+  collectionName: 'products';
+  info: {
+    singularName: 'product';
+    pluralName: 'products';
+    displayName: 'Product';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required & Attribute.Unique;
+    slug: Attribute.UID<'api::product.product', 'title'>;
+    product_category: Attribute.Relation<
+      'api::product.product',
+      'manyToOne',
+      'api::product-category.product-category'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProductCategoryProductCategory
+  extends Schema.CollectionType {
+  collectionName: 'product_categories';
+  info: {
+    singularName: 'product-category';
+    pluralName: 'product-categories';
+    displayName: 'Product category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required & Attribute.Unique;
+    products: Attribute.Relation<
+      'api::product-category.product-category',
+      'oneToMany',
+      'api::product.product'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::product-category.product-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::product-category.product-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSalesrepSalesrep extends Schema.CollectionType {
+  collectionName: 'salesreps';
+  info: {
+    singularName: 'salesrep';
+    pluralName: 'salesreps';
+    displayName: 'Salesrep';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    fullname: Attribute.String & Attribute.Required & Attribute.Unique;
+    office: Attribute.Relation<
+      'api::salesrep.salesrep',
+      'manyToOne',
+      'api::office.office'
+    >;
+    customers: Attribute.Relation<
+      'api::salesrep.salesrep',
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::salesrep.salesrep',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::salesrep.salesrep',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -859,7 +1022,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::office.office': ApiOfficeOffice;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -868,6 +1030,11 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::group.group': ApiGroupGroup;
+      'api::office.office': ApiOfficeOffice;
+      'api::product.product': ApiProductProduct;
+      'api::product-category.product-category': ApiProductCategoryProductCategory;
+      'api::salesrep.salesrep': ApiSalesrepSalesrep;
     }
   }
 }

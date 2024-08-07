@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "offices",
+  "collectionName": "groups",
   "info": {
-    "singularName": "office",
-    "pluralName": "offices",
-    "displayName": "Office",
+    "singularName": "group",
+    "pluralName": "groups",
+    "displayName": "Group",
     "description": ""
   },
   "options": {
@@ -17,20 +17,11 @@
       "required": true,
       "unique": true
     },
-    "address": {
-      "type": "text"
-    },
     "users": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "plugin::users-permissions.user",
-      "mappedBy": "office"
-    },
-    "salesreps": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::salesrep.salesrep",
-      "mappedBy": "office"
+      "mappedBy": "group"
     }
   }
 }

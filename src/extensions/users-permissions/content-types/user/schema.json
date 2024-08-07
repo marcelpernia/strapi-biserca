@@ -94,9 +94,6 @@
     "address": {
       "type": "text"
     },
-    "office_address": {
-      "type": "text"
-    },
     "file_ci": {
       "type": "media",
       "multiple": false,
@@ -177,6 +174,18 @@
     },
     "doc_foto": {
       "type": "text"
+    },
+    "group": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::group.group",
+      "inversedBy": "users"
+    },
+    "salesrep": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::salesrep.salesrep",
+      "inversedBy": "customers"
     }
   }
 }

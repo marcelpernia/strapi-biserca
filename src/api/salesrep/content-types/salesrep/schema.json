@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "salesreps",
+  "info": {
+    "singularName": "salesrep",
+    "pluralName": "salesreps",
+    "displayName": "Salesrep",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fullname": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "office": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::office.office",
+      "inversedBy": "salesreps"
+    },
+    "customers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "salesrep"
+    }
+  }
+}
